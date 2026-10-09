@@ -23,6 +23,7 @@ class Car {
     var z = 0f
     var angle = 0f
     var speed = 0f
+    var steer = 0f
     var damage = 0f
     var fuel = 100f
     val cr = 0.85f
