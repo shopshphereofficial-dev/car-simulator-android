@@ -1,22 +1,23 @@
-# Car Simulator (Android)
+# Car Simulator 3D (Android)
 
-Ek top-down open-city car driving simulator, native Android (Kotlin) mein, koi external game engine nahi.
-Saara rendering custom `View` + `Canvas` se hota hai.
+Ek 3D open-city car driving simulator, native Android (Kotlin) + OpenGL ES 2.0.
+Koi external game engine nahi — renderer aur physics sab custom code.
 
 ## Features
-- Open city: road grid, buildings, parks, fuel stations
-- Arcade car physics: accelerate, brake, steering
+- Real 3D scene: third-person chase camera car ke peeche
+- Open city — road grid, 3D buildings, fuel stations
+- Low-poly 3D car (body, cabin, wheels) + directional lighting
 - Traffic AI cars jo roads par chalti hain
 - Collisions (buildings + traffic) se damage
 - Fuel system + refuel stations
-- Coins collect karo
+- Coins collect karo (ghoomte hue 3D coins)
 - HUD: speedometer, fuel bar, damage bar, minimap, coins
-- Ek driver character jo react karta hai (khush, crash pe shocked, low fuel pe worried)
+- Driver character jo react karta hai (khush, crash pe shocked, low fuel pe worried)
 
 ## Controls (landscape)
 - Bottom-left: `<` aur `>` steering
 - Bottom-right: `BRAKE` aur `GAS`
-- Multitouch: ek saath steer + gas daba sakte ho
+- Multitouch: ek saath steer + gas
 
 ## Build (GitHub Actions)
 `main` branch par push karne se APK automatically build hoti hai (`.github/workflows/build.yml`).

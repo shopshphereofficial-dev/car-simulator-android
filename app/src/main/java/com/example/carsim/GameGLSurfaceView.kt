@@ -1,49 +1,18 @@
 package com.example.carsim
 
 import android.content.Context
-import android.graphics.Canvas
 import android.graphics.PointF
-import android.view.Choreographer
+import android.opengl.GLSurfaceView
 import android.view.MotionEvent
-import android.view.View
 
-class GameView(context: Context) : View(context) {
+class GameGLSurfaceView(context: Context, private val state: GameState) : GLSurfaceView(context) {
 
-    private val game = Game()
-    private var lastNanos = 0L
-    private var running = false
     private val pointers = HashMap<Int, PointF>()
 
-    private val choreographer = Choreographer.getInstance()
-
-    private val frameCallback = object : Choreographer.FrameCallback {
-        override fun doFrame(frameTimeNanos: Long) {
-            if (!running) return
-            var dt = if (lastNanos == 0L) 0f else (frameTimeNanos - lastNanos) / 1_000_000_000f
-            lastNanos = frameTimeNanos
-            if (dt > 0.05f) dt = 0.05f
-            game.update(dt)
-            invalidate()
-            choreographer.postFrameCallback(this)
-        }
-    }
-
-    fun resume() {
-        if (!running) {
-            running = true
-            lastNanos = 0L
-            choreographer.postFrameCallback(frameCallback)
-        }
-    }
-
-    fun pause() {
-        running = false
-        choreographer.removeFrameCallback(frameCallback)
-    }
-
-    override fun onDraw(canvas: Canvas) {
-        super.onDraw(canvas)
-        game.draw(canvas, width.toFloat(), height.toFloat())
+    init {
+        setEGLContextClientVersion(2)
+        setEGLConfigChooser(8, 8, 8, 0, 16, 0)
+        renderMode = RENDERMODE_CONTINUOUSLY
     }
 
     override fun onTouchEvent(event: MotionEvent): Boolean {
@@ -85,9 +54,9 @@ class GameView(context: Context) : View(context) {
                 fx >= Ctrl.BR_X0 -> brake = true
             }
         }
-        game.inLeft = left
-        game.inRight = right
-        game.inGas = gas
-        game.inBrake = brake
+        state.inLeft = left
+        state.inRight = right
+        state.inGas = gas
+        state.inBrake = brake
     }
 }
